@@ -1,26 +1,22 @@
 <?php
 
-use App\Http\Controllers\AboutUsController;
-use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
 
-Route::get('/about-us/{id}', [AboutUsController::class,'index']);
+Route::get('/about', function () {
+    return view('about');
+});
 
-//Route::get('products/{name}', function(string $name) {
-//    return view('products', [
-//        'name' => $name
-//    ]);
-//});
+Route::get('/contact', function () {
+    return view('contact');
+});
 
-Route::get('/products', [ProductController::class, 'index']);
-
-Route::get('/contact', function() {
-    return 'Contact pagina';
+Route::get('/loginc', function () {
+    return view('loginc');
 });
 
 Route::get('/dashboard', function () {
