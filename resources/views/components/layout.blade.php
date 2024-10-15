@@ -7,10 +7,10 @@
 </head>
 <body>
 <nav>
-    <x-nav-link href="/" :active="true">Home</x-nav-link>
-    <x-nav-link href="/about">About</x-nav-link>
-    <x-nav-link href="/contact">Contact</x-nav-link>
-    <x-nav-link href="/loginc">LoginC</x-nav-link>
+    <x-nav-link href="/" :active="false">Home</x-nav-link>
+    <x-nav-link href="/about" :active="false">About</x-nav-link>
+    <x-nav-link href="/contact" :active="false">Contact</x-nav-link>
+    <x-nav-link href="/players" :active="false">Players</x-nav-link>
 </nav>
 
 {{ $slot }}

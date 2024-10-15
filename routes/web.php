@@ -1,11 +1,13 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PlayerIndexController;
+use App\Http\Controllers\PlayerController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('home');
-});
+})->name('home');
 
 Route::get('/about', function () {
     return view('about');
@@ -15,9 +17,12 @@ Route::get('/contact', function () {
     return view('contact');
 });
 
-Route::get('/loginc', function () {
-    return view('loginc');
+Route::get('/user', function () {
+    return view('user');
 });
+
+Route::get('/players', [PlayerIndexController::class, 'index'])->name('players.index');
+Route::get('/players/{id}', [PlayerController::class, 'show'])->name('players.show');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
