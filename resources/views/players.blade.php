@@ -1,5 +1,5 @@
 <x-layout>
-    <h1>Welcome to the Players Page!</h1>
+    <h1>Welkom naar de Spelers pagina!</h1>
     <ul>
         @foreach($players as $player)
             <li>
