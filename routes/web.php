@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\PlayerIndexController;
 use App\Http\Controllers\PlayerController;
+use App\Http\Controllers\PlayerIndexController;
+use App\Http\Controllers\TeamController;
+use App\Http\Controllers\TeamIndexController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
