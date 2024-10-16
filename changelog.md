@@ -60,3 +60,5 @@
 ## 16/10 - Woensdag - Les 6
 
 - ERD goed gemaakt
+- Teams migration toegevoegd
+- User_id foreign key toegevoegd aan de Teams table
