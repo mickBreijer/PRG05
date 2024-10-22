@@ -10,6 +10,6 @@ class TeamIndexController extends Controller
     public function index()
     {
         $teams = team::all();
-        return view('teams', compact('teams'));
+        return view('teams.index', compact('teams'));
     }
 }

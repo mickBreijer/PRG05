@@ -10,12 +10,12 @@ class PlayerController extends Controller
     public function show($id)
     {
         $player = Player::find($id);
-        return view('player', compact('player'));
+        return view('player.show', compact('player'));
     }
 
     public function index()
     {
         $players = Player::all();
-        return view('players', compact('players'));
+        return view('players.index', compact('players'));
     }
 }

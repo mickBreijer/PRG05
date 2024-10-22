@@ -10,6 +10,6 @@ class PlayerIndexController extends Controller
     public function index()
     {
         $players = Player::all();
-        return view('players', compact('players'));
+        return view('players.index', compact('players'));
     }
 }
