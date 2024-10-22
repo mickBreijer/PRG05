@@ -1,15 +1,13 @@
-<x-layout>
+<x-layout><br>
     <h1>Welkom naar de Teams pagina!</h1>
-    <form action="{{ route('teams.create') }}" method="POST">
-        @csrf
-        <button type="submit">Maak je eigen Team</button>
-    </form>
+    <a href="{{url(route('teams.create'))}}">Maak een eigen team</a>
 
     <ul>
         @foreach($teams as $team)
             <li>
-                {{ $team->name }}
-                Het Team van: {{ $team->user_id }}
+                <a href="{{ url(route('teams.show', $team->id)) }}">
+                    {{ $team->name }} Het Team van: {{ $team->user_id }}
+                </a>
             </li>
         @endforeach
     </ul>

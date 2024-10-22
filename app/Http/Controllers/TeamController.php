@@ -2,40 +2,51 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Player;
 use App\Models\Team;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TeamController extends Controller
 {
     public function show($id)
     {
         $team = Team::find($id);
-        return view('team.show', compact('team'));
+        $team->load('players');
+        return view('teams.show', compact('team'));
     }
 
     public function index()
     {
-        $teams = team::all();
+        $teams = Team::all();
         return view('teams.index', compact('teams'));
     }
 
     public function create()
     {
-        $teams = Team::all();
-        return view('teams.create', compact('teams'));
+        $players = Player::all();
+        return view('teams.create', compact('players'));
     }
 
     public function store(Request $request)
     {
-        $validated = $request -> validate(
-            ['name' => 'required|max:255|unique:team_name']
-        );
-        $team = new Team();
-        $team->team_name = $request->input('name');
+        // Validate the input
+        $validated = $request->validate([
+            'name' => 'required|max:255|unique:teams',
+            'players' => 'required|array|min:11|max:11',
+            'players.*' => 'exists:players,id',
+        ]);
 
+        $team = new Team();
+        $team->name = $request->input('name');
         $team->user_id = Auth::user()->id;
-        $team->save();
-        return redirect(route('teams.index'));
+        $success = $team->save();
+
+        if ($success) {
+            $team->players()->attach($validated['players']);
+        }
+
+        return redirect(route('teams.index'))->with('success', 'Team created and players assigned successfully!');
     }
 
     public function edit(Team $team)
@@ -53,5 +64,3 @@ class TeamController extends Controller
 
     }
 }
-
-
