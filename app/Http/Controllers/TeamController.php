@@ -30,22 +30,31 @@ class TeamController extends Controller
 
     public function store(Request $request)
     {
-        // Validate the input
         $validated = $request->validate([
             'name' => 'required|max:255|unique:teams',
-            'players' => 'required|array|min:11|max:11',
-            'players.*' => 'exists:players,id',
+            'players.keeper' => 'required|exists:players,id|distinct',
+            'players.verdediger' => 'required|array|min:4|max:4',
+            'players.verdediger.*' => 'exists:players,id|distinct',
+            'players.middenvelder' => 'required|array|min:3|max:3',
+            'players.middenvelder.*' => 'exists:players,id|distinct',
+            'players.aanvaller' => 'required|array|min:3|max:3',
+            'players.aanvaller.*' => 'exists:players,id|distinct',
         ]);
 
         $team = new Team();
         $team->name = $request->input('name');
         $team->user_id = Auth::user()->id;
+
         $success = $team->save();
 
         if ($success) {
-            $team->players()->attach($validated['players']);
+            $team->players()->attach($validated['players']['keeper']);
+            $team->players()->attach($validated['players']['verdediger']);
+            $team->players()->attach($validated['players']['middenvelder']);
+            $team->players()->attach($validated['players']['aanvaller']);
         }
 
+        // Redirect to the teams index page with a success message
         return redirect(route('teams.index'))->with('success', 'Team created and players assigned successfully!');
     }
 

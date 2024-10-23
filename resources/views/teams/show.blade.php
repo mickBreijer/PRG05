@@ -1,10 +1,8 @@
 <x-layout><br>
-    <h1>{{ $team->name }}</h1>
+    <h1>Alle spelers van Team: {{ $team->name }}</h1>
     <ul>
-        @forelse($team->players as $player)
-            <li>{{$player->name}}</li>
-        @empty
-        <p>geen spelers in dit team</p>
-        @endforelse
+        @foreach($team->players as $player)
+            <li>{{ $player->name }} | {{ $player->position }}</li>
+        @endforeach
     </ul>
 </x-layout>
