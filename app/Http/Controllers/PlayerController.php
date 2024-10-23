@@ -28,15 +28,25 @@ class PlayerController extends Controller
 
     public function store(Request $request)
     {
-        $validated = $request -> validate(
-            ['name' => 'required|max:255|unique:players']
-        );
-        $player = new player();
-        $player->name = $request->input('name');
 
-        $player->user_id = Auth::user()->id;
+        $validated = $request->validate([
+            'name' => 'required|max:255|unique:players',
+            'club' => 'required',
+            'value' => 'required|numeric|min:0',
+            'position' => 'required',
+        ]);
+
+        $player = new Player();
+        $player->name = $validated['name'];
+        $player->club = $validated['club'];
+        $player->value = $validated['value'];
+        $player->position = $validated['position'];
+        $player->points = 0;
+        $player->eligibility = 0;
+//        $player->user_id = Auth::user()->id;
         $player->save();
-        return redirect(route('players.index'));
+
+        return redirect(route('players.index'))->with('success', 'Speler succesvol aangemaakt!');
     }
 
     public function edit(Player $player)

@@ -11,7 +11,7 @@
             @for ($i = 1; $i <= 11; $i++)
                 <label for="player_{{ $i }}">Speler {{ $i }}</label>
                 <select name="players[]" id="player_{{ $i }}" required>
-                    <option value="">Kies een speler</option> <!-- Placeholder option -->
+                    <option value="">Kies een speler</option>
                     @foreach($players as $player)
                         <option value="{{ $player->id }}">{{ $player->name }}</option>
                     @endforeach
