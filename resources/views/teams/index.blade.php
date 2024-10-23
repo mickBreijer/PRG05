@@ -6,7 +6,7 @@
         @foreach($teams as $team)
             <li>
                 <a href="{{ url(route('teams.show', $team->id)) }}">
-                    {{ $team->name }} Het Team van: {{ $team->user_id }}
+                    {{ $team->name }} Het Team van: {{ $team->user->name }}
                 </a>
             </li>
         @endforeach
