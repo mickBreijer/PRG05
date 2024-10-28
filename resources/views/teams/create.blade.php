@@ -23,7 +23,9 @@
             <select name="players[keeper]" required>
                 <option value="">Kies een keeper</option>
                 @foreach($players as $player)
+                    @if($player->position == 'Keeper')
                     <option value="{{ $player->id }}">{{ $player->name }}</option>
+                    @endif
                 @endforeach
             </select><br>
 
@@ -32,7 +34,9 @@
                 <select name="players[verdediger][]" required>
                     <option value="">Kies een verdediger</option>
                     @foreach($players as $player)
+                        @if($player->position == 'Verdediger')
                         <option value="{{ $player->id }}">{{ $player->name }}</option>
+                        @endif
                     @endforeach
                 </select><br>
             @endfor
@@ -42,7 +46,9 @@
                 <select name="players[middenvelder][]" required>
                     <option value="">Kies een middenvelder</option>
                     @foreach($players as $player)
+                        @if($player->position == 'Middenvelder')
                         <option value="{{ $player->id }}">{{ $player->name }}</option>
+                        @endif
                     @endforeach
                 </select><br>
             @endfor
@@ -52,7 +58,9 @@
                 <select name="players[aanvaller][]" required>
                     <option value="">Kies een aanvaller</option>
                     @foreach($players as $player)
+                        @if($player->position == 'Aanvaller')
                         <option value="{{ $player->id }}">{{ $player->name }}</option>
+                        @endif
                     @endforeach
                 </select><br>
             @endfor
