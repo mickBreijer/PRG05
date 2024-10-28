@@ -58,7 +58,6 @@ class TeamController extends Controller
 
     public function edit(Team $team)
     {
-        // Get all players who are not in the team
         $allPlayers = Player::all();
         $currentPlayerIds = $team->players->pluck('id')->toArray();
         $availablePlayers = [];
@@ -78,10 +77,9 @@ class TeamController extends Controller
 
         foreach ($substitutions as $playerId => $substituteId) {
             if ($substituteId) {
-                // Update the substituted player
+
                 $team->players()->updateExistingPivot($playerId, ['substitution' => 1]);
 
-                // Add the new player to the team
                 $team->players()->attach($substituteId, ['substitution' => 0]);
             }
         }

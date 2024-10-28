@@ -1,8 +1,7 @@
 <x-layout><br>
 
-{{--    <a href="{{ route('players.edit', $player->id) }}" class="btn btn-primary">Bewerk Speler</a>--}}
-
     <h1>{{$player->name}}</h1>
+    <a href="{{ route('players.edit', $player->id) }}" class="btn btn-primary">Bewerk Speler</a>
     <p>Club: {{ $player->club }}</p>
     <p>Positie: {{ $player->position }}</p>
     <p>Waarde: {{ $player->value }}</p>

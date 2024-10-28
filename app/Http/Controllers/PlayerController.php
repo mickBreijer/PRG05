@@ -51,14 +51,28 @@ class PlayerController extends Controller
 
     public function edit(Player $player)
     {
-
+        return view('players.edit', compact('player'));
     }
 
     public function update(Request $request, Player $player)
     {
+        $validated = $request->validate([
+            'name' => 'required|max:255|unique:players,name,' . $player->id,
+            'club' => 'required',
+            'value' => 'required|numeric|min:0',
+            'position' => 'required',
+        ]);
 
+        $player->name = $validated['name'];
+        $player->club = $validated['club'];
+        $player->value = $validated['value'];
+        $player->position = $validated['position'];
+        $player->save();
+
+        return redirect()->route('players.index')->with('success', 'Speler succesvol bijgewerkt!');
     }
-    public function destroy(player $player)
+
+    public function destroy(Player $player)
     {
         $player->delete();
 
