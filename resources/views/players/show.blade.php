@@ -10,4 +10,5 @@
         @csrf
         @method('DELETE')
         <button type="submit" class="btn btn-danger" onclick="return confirm('Weet je zeker dat je deze speler wilt verwijderen?');">Verwijder Speler</button>
+    </form>
 </x-layout>
