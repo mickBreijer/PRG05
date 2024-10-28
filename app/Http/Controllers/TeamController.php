@@ -11,8 +11,7 @@ class TeamController extends Controller
 {
     public function show($id)
     {
-        $team = Team::find($id);
-        $team->load('players');
+        $team = Team::with(['players', 'substitutedPlayers'])->findOrFail($id);
         return view('teams.show', compact('team'));
     }
 
@@ -54,7 +53,6 @@ class TeamController extends Controller
             $team->players()->attach($validated['players']['aanvaller']);
         }
 
-        // Redirect to the teams index page with a success message
         return redirect(route('teams.index'))->with('success', 'Team created and players assigned successfully!');
     }
 

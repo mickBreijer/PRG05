@@ -1,8 +1,21 @@
 <x-layout><br>
     <h1>Alle spelers van Team: {{ $team->name }}</h1>
+
+    <h2>Actieve Spelers</h2>
     <ul>
-        @foreach($team->players as $player)
+        @forelse($team->players as $player)
             <li>{{ $player->name }} | {{ $player->position }}</li>
-        @endforeach
+        @empty
+            <li>Geen actieve spelers in dit team</li>
+        @endforelse
+    </ul>
+
+    <h2>Gewisselde Spelers</h2>
+    <ul>
+        @forelse($team->substitutedPlayers as $player)
+            <li>{{ $player->name }} | {{ $player->position }} | Gewisseld</li>
+        @empty
+            <li>Geen gewisselde spelers in dit team</li>
+        @endforelse
     </ul>
 </x-layout>
