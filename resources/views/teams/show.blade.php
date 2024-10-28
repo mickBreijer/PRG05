@@ -1,7 +1,9 @@
 <x-layout><br>
     <h1>Alle spelers van Team: {{ $team->name }}</h1>
 
+    @if(Auth::id() === $team->user_id || Auth::user()->is_admin == 1)
     <a href="{{ route('teams.edit', $team->id) }}" class="btn btn-primary">Bewerk Team</a>
+    @endif
 
     <h2>Actieve Spelers</h2>
     <ul>
@@ -35,11 +37,13 @@
         @endforelse
     </ul>
 
+    @if(Auth::id() === $team->user_id || Auth::user()->is_admin == 1)
     <form action="{{ route('teams.destroy', $team->id) }}" method="POST" style="display:inline;">
         @csrf
         @method('DELETE')
         <button type="submit" class="btn btn-danger" onclick="return confirm('Weet je zeker dat je dit team wilt verwijderen?');">Verwijder Team</button>
     </form>
+    @endif
 
     <a href="{{url(route('teams.index'))}}">Terug naar de Teams pagina</a>
 
