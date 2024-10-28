@@ -34,4 +34,10 @@
             <li>Geen gewisselde spelers in dit team</li>
         @endforelse
     </ul>
+
+    <form action="{{ route('teams.destroy', $team->id) }}" method="POST" style="display:inline;">
+        @csrf
+        @method('DELETE')
+        <button type="submit" class="btn btn-danger" onclick="return confirm('Weet je zeker dat je dit team wilt verwijderen?');">Verwijder Team</button>
+    </form>
 </x-layout>

@@ -91,6 +91,10 @@ class TeamController extends Controller
 
     public function destroy(Team $team)
     {
+        $team->players()->detach();
 
+        $team->delete();
+
+        return redirect()->route('teams.index')->with('success', 'Team deleted successfully!');
     }
 }
