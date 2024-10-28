@@ -58,12 +58,35 @@ class TeamController extends Controller
 
     public function edit(Team $team)
     {
+        // Get all players who are not in the team
+        $allPlayers = Player::all();
+        $currentPlayerIds = $team->players->pluck('id')->toArray();
+        $availablePlayers = [];
 
+        foreach ($allPlayers as $player) {
+            if (!in_array($player->id, $currentPlayerIds)) {
+                $availablePlayers[$player->position][] = $player;
+            }
+        }
+
+        return view('teams.edit', compact('team', 'availablePlayers'));
     }
 
     public function update(Request $request, Team $team)
     {
+        $substitutions = $request->input('substitutions');
 
+        foreach ($substitutions as $playerId => $substituteId) {
+            if ($substituteId) {
+                // Update the substituted player
+                $team->players()->updateExistingPivot($playerId, ['substitution' => 1]);
+
+                // Add the new player to the team
+                $team->players()->attach($substituteId, ['substitution' => 0]);
+            }
+        }
+
+        return redirect()->route('teams.show', $team->id)->with('success', 'Team updated successfully!');
     }
 
     public function destroy(Team $team)

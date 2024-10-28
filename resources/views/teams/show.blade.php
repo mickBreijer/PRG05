@@ -1,6 +1,8 @@
 <x-layout><br>
     <h1>Alle spelers van Team: {{ $team->name }}</h1>
 
+    <a href="{{ route('teams.edit', $team->id) }}" class="btn btn-primary">Bewerk Team</a>
+
     <h2>Actieve Spelers</h2>
     <ul>
         @forelse($team->players as $player)
