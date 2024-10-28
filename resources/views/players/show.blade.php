@@ -11,4 +11,7 @@
         @method('DELETE')
         <button type="submit" class="btn btn-danger" onclick="return confirm('Weet je zeker dat je deze speler wilt verwijderen?');">Verwijder Speler</button>
     </form>
+
+    <a href="{{url(route('players.index'))}}">Terug naar de Spelers pagina</a>
+
 </x-layout>

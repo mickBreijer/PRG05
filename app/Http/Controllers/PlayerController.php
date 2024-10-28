@@ -22,6 +22,9 @@ class PlayerController extends Controller
 
     public function create()
     {
+        if (Auth::user()->is_admin !== 1) {
+            return redirect()->route('players.index');
+        }
         $players = Player::all();
         return view('players.create', compact('players'));
     }

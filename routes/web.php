@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PlayerController;
 use App\Http\Controllers\TeamController;
@@ -23,6 +24,7 @@ Route::get('/user', function () {
 
 Route::resource('/teams', TeamController::class);
 Route::resource('/players', PlayerController::class);
+Route::resource('/admin', AdminController::class);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
