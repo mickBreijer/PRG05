@@ -58,10 +58,11 @@ class PlayerController extends Controller
     {
 
     }
-
-    public function destroy(Player $player)
+    public function destroy(player $player)
     {
+        $player->delete();
 
+        return redirect()->route('players.index')->with('success', 'Player deleted successfully!');
     }
 }
 
