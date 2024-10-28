@@ -40,4 +40,7 @@
         @method('DELETE')
         <button type="submit" class="btn btn-danger" onclick="return confirm('Weet je zeker dat je dit team wilt verwijderen?');">Verwijder Team</button>
     </form>
+
+    <a href="{{url(route('teams.index'))}}">Terug naar de Teams pagina</a>
+
 </x-layout>

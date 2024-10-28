@@ -15,10 +15,19 @@ class TeamController extends Controller
         return view('teams.show', compact('team'));
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $teams = Team::all();
-        return view('teams.index', compact('teams'));
+        $playerSearchTerm = $request->input('player_search', '');
+
+        $teams = Team::with('user', 'players')
+            ->when($playerSearchTerm, function ($query, $playerSearchTerm) {
+                return $query->whereHas('players', function ($query) use ($playerSearchTerm) {
+                    $query->where('name', 'like', '%' . $playerSearchTerm . '%');
+                });
+            })
+            ->get();
+
+        return view('teams.index', compact('teams', 'playerSearchTerm'));
     }
 
     public function create()
@@ -77,9 +86,7 @@ class TeamController extends Controller
 
         foreach ($substitutions as $playerId => $substituteId) {
             if ($substituteId) {
-
                 $team->players()->updateExistingPivot($playerId, ['substitution' => 1]);
-
                 $team->players()->attach($substituteId, ['substitution' => 0]);
             }
         }
@@ -90,7 +97,6 @@ class TeamController extends Controller
     public function destroy(Team $team)
     {
         $team->players()->detach();
-
         $team->delete();
 
         return redirect()->route('teams.index')->with('success', 'Team deleted successfully!');
