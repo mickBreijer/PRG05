@@ -32,6 +32,12 @@ class TeamController extends Controller
 
     public function create()
     {
+        // Check if the user has viewed at least 3 players
+        $viewedPlayersCount = session('viewedPlayersCount', 0);
+        if ($viewedPlayersCount < 3) {
+            return redirect()->route('teams.index')->with('error', 'Je moet minstens 3 spelers bekijken voordat je een team kunt aanmaken.');
+        }
+
         $players = Player::all();
         return view('teams.create', compact('players'));
     }

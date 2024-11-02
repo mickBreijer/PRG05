@@ -13,10 +13,30 @@
     <ul>
         @foreach($players as $player)
             <li>
-                <a href="{{ url(route('players.show', $player->id)) }}">
+                <a href="{{ url(route('players.show', $player->id)) }}" onclick="playerViewed()">
                     {{ $player->name }}
                 </a>
             </li>
         @endforeach
     </ul>
+
+    <script>
+        // Function to track player views
+        function playerViewed() {
+            // Check if the user has already created a team
+            if (localStorage.getItem('teamCreated') === 'true') {
+                return; // If they have created a team, do nothing
+            }
+
+            // Get the current count from local storage
+            let viewedCount = localStorage.getItem('viewedPlayersCount') || 0;
+            viewedCount = parseInt(viewedCount) + 1; // Increment the count
+            localStorage.setItem('viewedPlayersCount', viewedCount); // Store it back
+
+            // Optional: Notify the user when they reach 3 views
+            if (viewedCount === 3) {
+                alert('Je hebt 3 spelers bekeken! Je kunt nu een team aanmaken.');
+            }
+        }
+    </script>
 </x-layout>

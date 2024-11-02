@@ -11,6 +11,17 @@ class PlayerController extends Controller
     public function show($id)
     {
         $player = Player::find($id);
+
+        // Track the number of viewed players in the session
+        $viewedPlayersCount = session('viewedPlayersCount', 0);
+        $viewedPlayersCount++;
+        session(['viewedPlayersCount' => $viewedPlayersCount]);
+
+        // Optionally, you can add a flash message to inform the user
+        if ($viewedPlayersCount == 3) {
+            session()->flash('success', 'Je hebt nu 3 spelers bekeken! Je kunt nu een team aanmaken.');
+        }
+
         return view('players.show', compact('player'));
     }
 
