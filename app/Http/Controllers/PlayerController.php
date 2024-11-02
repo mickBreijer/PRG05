@@ -28,13 +28,17 @@ class PlayerController extends Controller
     public function index(Request $request)
     {
         $playerSearchTerm = $request->input('player_search', '');
+        $position = $request->input('position', '');
 
         $players = Player::when($playerSearchTerm, function ($query) use ($playerSearchTerm) {
             return $query->where('name', 'like', '%' . $playerSearchTerm . '%');
         })
+            ->when($position, function ($query) use ($position) {
+                return $query->where('position', $position);
+            })
             ->get();
 
-        return view('players.index', compact('players', 'playerSearchTerm'));
+        return view('players.index', compact('players', 'playerSearchTerm', 'position'));
     }
 
     public function create()

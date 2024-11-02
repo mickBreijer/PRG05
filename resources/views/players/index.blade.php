@@ -7,6 +7,17 @@
             <input type="text" name="player_search" id="player_search" value="{{ old('player_search', $playerSearchTerm) }}">
         </div>
 
+        <div>
+            <label for="position">Positie:</label>
+            <select name="position" id="position">
+                <option value="">Alles</option>
+                <option value="Aanvaller" {{ old('position', $position) == 'Aanvaller' ? 'selected' : '' }}>Aanvaller</option>
+                <option value="Middenvelder" {{ old('position', $position) == 'Middenvelder' ? 'selected' : '' }}>Middenvelder</option>
+                <option value="Defender" {{ old('position', $position) == 'Defender' ? 'selected' : '' }}>Verdediger</option>
+                <option value="Keeper" {{ old('position', $position) == 'Keeper' ? 'selected' : '' }}>Doelman</option>
+            </select>
+        </div>
+
         <button type="submit">Search</button>
     </form><br>
 
