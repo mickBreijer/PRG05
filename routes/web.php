@@ -23,6 +23,7 @@ Route::get('/user', function () {
 });
 
 Route::resource('/teams', TeamController::class);
+Route::post('teams/{team}/toggle', [TeamController::class, 'toggleActive'])->name('teams.toggle');
 Route::resource('/players', PlayerController::class);
 Route::resource('/admin', AdminController::class);
 

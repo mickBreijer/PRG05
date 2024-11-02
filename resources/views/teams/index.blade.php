@@ -20,11 +20,13 @@
         @else
             <ul>
                 @foreach($teams as $team)
+                    @if($team->is_active == 1)
                     <li>
                         <a href="{{ route('teams.show', $team->id) }}">
                             {{ $team->name }} Het Team van: {{$team->user->name}}
                         </a>
                     </li>
+                    @endif
                 @endforeach
             </ul>
         @endif

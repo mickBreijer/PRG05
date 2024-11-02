@@ -101,4 +101,12 @@ class TeamController extends Controller
 
         return redirect()->route('teams.index')->with('success', 'Team deleted successfully!');
     }
+
+    public function toggleActive(Team $team)
+    {
+        $team->is_active = !$team->is_active;
+        $team->save();
+
+        return redirect()->route('admin.index')->with('success', 'Team status updated successfully.');
+    }
 }
