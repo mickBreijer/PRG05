@@ -9,7 +9,7 @@
         <ul>
             @foreach($team->players as $player)
                 <li>
-                    {{ $player->name }} | {{ $player->position }}
+                    {{ $player->position }} | {{ $player->club }} | {{ $player->name }}
                     <select name="substitutions[{{ $player->id }}]">
                         <option value="">Selecteer vervanger</option>
                         @foreach($availablePlayers[$player->position] as $substitute)

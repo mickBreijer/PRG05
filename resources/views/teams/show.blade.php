@@ -16,7 +16,7 @@
         @endphp
 
         @forelse($sortedPlayers as $player)
-            <li>{{ $player->name }} | {{ $player->position }}</li>
+            <li>{{ $player->position }} | {{ $player->club }} | {{ $player->name }}</li>
         @empty
             <li>Geen actieve spelers in dit team</li>
         @endforelse
@@ -31,7 +31,7 @@
         @endphp
 
         @forelse($sortedSubstitutedPlayers as $player)
-            <li>{{ $player->name }} | {{ $player->position }} | Gewisseld</li>
+            <li>{{ $player->position }} | {{ $player->club }} | {{ $player->name }} | Gewisseld</li>
         @empty
             <li>Geen gewisselde spelers in dit team</li>
         @endforelse
