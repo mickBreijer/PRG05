@@ -3,7 +3,7 @@
 
     <form method="GET" action="{{ route('players.index') }}">
         <div>
-            <label for="player_search">Zoek een speler:</label>
+            <label for="player_search">Zoek een Speler:</label>
             <input type="text" name="player_search" id="player_search" value="{{ old('player_search', $playerSearchTerm) }}">
         </div>
 
