@@ -23,7 +23,7 @@
             <select name="players[keeper]" required onchange="updateOptions(this)">
                 <option value="">Kies een keeper</option>
                 @foreach($players as $player)
-                    @if($player->position == 'Keeper')
+                    @if($player->eligibility == 0 && $player->position == 'Keeper')
                         <option value="{{ $player->id }}">{{ $player->name }}</option>
                     @endif
                 @endforeach
@@ -34,7 +34,7 @@
                 <select name="players[verdediger][]" required onchange="updateOptions(this)">
                     <option value="">Kies een verdediger</option>
                     @foreach($players as $player)
-                        @if($player->position == 'Verdediger')
+                        @if($player->eligibility == 0 && $player->position == 'Verdediger')
                             <option value="{{ $player->id }}">{{ $player->name }}</option>
                         @endif
                     @endforeach
@@ -46,7 +46,7 @@
                 <select name="players[middenvelder][]" required onchange="updateOptions(this)">
                     <option value="">Kies een middenvelder</option>
                     @foreach($players as $player)
-                        @if($player->position == 'Middenvelder')
+                        @if($player->eligibility == 0 && $player->position == 'Middenvelder')
                             <option value="{{ $player->id }}">{{ $player->name }}</option>
                         @endif
                     @endforeach
@@ -58,7 +58,7 @@
                 <select name="players[aanvaller][]" required onchange="updateOptions(this)">
                     <option value="">Kies een aanvaller</option>
                     @foreach($players as $player)
-                        @if($player->position == 'Aanvaller')
+                        @if($player->eligibility == 0 && $player->position == 'Aanvaller')
                             <option value="{{ $player->id }}">{{ $player->name }}</option>
                         @endif
                     @endforeach
