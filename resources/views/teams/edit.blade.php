@@ -13,7 +13,9 @@
                     <select name="substitutions[{{ $player->id }}]">
                         <option value="">Selecteer vervanger</option>
                         @foreach($availablePlayers[$player->position] as $substitute)
+                            @if($substitute->eligibility == 0)
                             <option value="{{ $substitute->id }}">{{ $substitute->name }}</option>
+                            @endif
                         @endforeach
                     </select>
                 </li>
