@@ -138,6 +138,13 @@
 
 ## 02/11 - Zaterdag - Thuis
 
+- 'is_admin not null' error  voor niet ingelogde gebruikers gefixed
+- Speelbaar input 
+- Nieuwe kolom toegevoegd in de 'teams' table voor actieve status
+- Knop toegevoegd op de Admin pagina om de actieve status van teams te veranderen tussen 'Active & Inactive'
+- Diepere validatie toegevoegd voor het aanmaken van een team
+- 
+
 ## 03/11 - Zondag - Thuis
 
 - Deadline
