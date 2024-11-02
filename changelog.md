@@ -143,7 +143,9 @@
 - Nieuwe kolom toegevoegd in de 'teams' table voor actieve status
 - Knop toegevoegd op de Admin pagina om de actieve status van teams te veranderen tussen 'Active & Inactive'
 - Diepere validatie toegevoegd voor het aanmaken van een team
-- 
+- Deeplinken naar de edit pagina van een team voorkomen
+- Dropdown voor het sorteren op positie aan de players.index toegevoegd
+- Opdracht ingeleverd
 
 ## 03/11 - Zondag - Thuis
 
