@@ -12,10 +12,11 @@
     <x-nav-link href="/about" :active="false">Over Ons</x-nav-link>
     <x-nav-link href="/contact" :active="false">Contact</x-nav-link>
     <x-nav-link href="/players" :active="false">Spelers</x-nav-link>
-
     <x-nav-link href="/teams" :active="false">Teams</x-nav-link>
+    @if(!Auth::check())
     <x-nav-link href="/login" :active="false">Login</x-nav-link>
     <x-nav-link href="/register" :active="false">Registreren</x-nav-link>
+    @endif
     <x-nav-link href="/dashboard" :active="false">Account</x-nav-link>
     @if(Auth::check() && Auth::user()->is_admin == 1)
         <x-nav-link href="/admin" :active="false">Admin</x-nav-link>

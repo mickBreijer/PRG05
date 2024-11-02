@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Team extends Model
 {
-
     public function players(): BelongsToMany
     {
         return $this->belongsToMany(Player::class, 'player_team')->where('substitution', 0);

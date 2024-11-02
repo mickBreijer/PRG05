@@ -14,10 +14,16 @@ class PlayerController extends Controller
         return view('players.show', compact('player'));
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $players = Player::all();
-        return view('players.index', compact('players'));
+        $playerSearchTerm = $request->input('player_search', '');
+
+        $players = Player::when($playerSearchTerm, function ($query) use ($playerSearchTerm) {
+            return $query->where('name', 'like', '%' . $playerSearchTerm . '%');
+        })
+            ->get();
+
+        return view('players.index', compact('players', 'playerSearchTerm'));
     }
 
     public function create()
