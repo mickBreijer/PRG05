@@ -16,7 +16,8 @@
     <x-nav-link href="/teams" :active="false">Teams</x-nav-link>
     <x-nav-link href="/login" :active="false">Login</x-nav-link>
     <x-nav-link href="/register" :active="false">Registreren</x-nav-link>
-    @if(Auth::user()->is_admin == 1)
+    <x-nav-link href="/dashboard" :active="false">Account</x-nav-link>
+    @if(Auth::check() && Auth::user()->is_admin == 1)
         <x-nav-link href="/admin" :active="false">Admin</x-nav-link>
     @endif
 </nav>
