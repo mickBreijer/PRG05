@@ -25,6 +25,11 @@
             <input type="text" id="position" name="position" value="{{ old('position', $player->position) }}" required>
         </div>
 
+        <div>
+            <label for="eligibility">Speelbaar</label>
+            <input type="number" id="eligibility" name="eligibility" value="{{ old('eligibility', $player->eligibility) }}" required>
+        </div>
+
         <button type="submit" class="btn btn-primary">Bijwerken</button>
     </form>
 

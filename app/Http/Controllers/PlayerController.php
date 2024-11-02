@@ -37,6 +37,7 @@ class PlayerController extends Controller
             'club' => 'required',
             'value' => 'required|numeric|min:0',
             'position' => 'required',
+            'eligibility' => 'required|numeric'
         ]);
 
         $player = new Player();
@@ -46,7 +47,6 @@ class PlayerController extends Controller
         $player->position = $validated['position'];
         $player->points = 0;
         $player->eligibility = 0;
-//        $player->user_id = Auth::user()->id;
         $player->save();
 
         return redirect(route('players.index'))->with('success', 'Speler succesvol aangemaakt!');
@@ -64,12 +64,15 @@ class PlayerController extends Controller
             'club' => 'required',
             'value' => 'required|numeric|min:0',
             'position' => 'required',
+            'eligibility' => 'required|numeric'
+
         ]);
 
         $player->name = $validated['name'];
         $player->club = $validated['club'];
         $player->value = $validated['value'];
         $player->position = $validated['position'];
+        $player->eligibility = $validated['eligibility'];
         $player->save();
 
         return redirect()->route('players.index')->with('success', 'Speler succesvol bijgewerkt!');
