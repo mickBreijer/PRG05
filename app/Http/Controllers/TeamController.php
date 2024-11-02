@@ -11,18 +11,18 @@ class TeamController extends Controller
 {
     public function show($id)
     {
-        $team = Team::with(['players', 'substitutedPlayers'])->findOrFail($id);
+        $team = Team::with(['players', 'substitutedPlayers'])->findOrFail($id);  // Retrieve team with players and substituted players
         return view('teams.show', compact('team'));
     }
 
     public function index(Request $request)
     {
-        $playerSearchTerm = $request->input('player_search', '');
+        $playerSearchTerm = $request->input('player_search', '');  // Get player search term
 
         $teams = Team::with('user', 'players')
             ->when($playerSearchTerm, function ($query, $playerSearchTerm) {
                 return $query->whereHas('players', function ($query) use ($playerSearchTerm) {
-                    $query->where('name', 'like', '%' . $playerSearchTerm . '%');
+                    $query->where('name', 'like', '%' . $playerSearchTerm . '%');  // Filter teams by player name
                 });
             })
             ->get();
@@ -38,7 +38,7 @@ class TeamController extends Controller
             return redirect()->route('teams.index')->with('error', 'Je moet minstens 3 spelers bekijken voordat je een team kunt aanmaken.');
         }
 
-        $players = Player::all();
+        $players = Player::all();  // Get all players for selection in team creation
         return view('teams.create', compact('players'));
     }
 
@@ -59,9 +59,10 @@ class TeamController extends Controller
         $team->name = $request->input('name');
         $team->user_id = Auth::user()->id;
 
-        $success = $team->save();
+        $success = $team->save();  // Save the team
 
         if ($success) {
+            // Attach players to the team
             $team->players()->attach($validated['players']['keeper']);
             $team->players()->attach($validated['players']['verdediger']);
             $team->players()->attach($validated['players']['middenvelder']);
@@ -73,18 +74,18 @@ class TeamController extends Controller
 
     public function edit(Team $team)
     {
-        if(Auth::id() === $team->user_id || Auth::user()->is_admin == 1) {
-            $allPlayers = Player::all();
-            $currentPlayerIds = $team->players->pluck('id')->toArray();
+        if(Auth::id() === $team->user_id || Auth::user()->is_admin == 1) {  // Allow editing if user owns team or is admin
+            $allPlayers = Player::all();  // Get all players
+            $currentPlayerIds = $team->players->pluck('id')->toArray();  // Get IDs of current team players
             $availablePlayers = [];
 
             foreach ($allPlayers as $player) {
                 if (!in_array($player->id, $currentPlayerIds)) {
-                    $availablePlayers[$player->position][] = $player;
+                    $availablePlayers[$player->position][] = $player;  // Collect players not in the team, grouped by position
                 }
             }
         } else {
-            return view('home');
+            return view('home');  // Redirect non-authorized users to home
         }
 
         return view('teams.edit', compact('team', 'availablePlayers'));
@@ -96,8 +97,8 @@ class TeamController extends Controller
 
         foreach ($substitutions as $playerId => $substituteId) {
             if ($substituteId) {
-                $team->players()->updateExistingPivot($playerId, ['substitution' => 1]);
-                $team->players()->attach($substituteId, ['substitution' => 0]);
+                $team->players()->updateExistingPivot($playerId, ['substitution' => 1]);  // Mark current player as substituted
+                $team->players()->attach($substituteId, ['substitution' => 0]);  // Attach new player in substitution role
             }
         }
 
@@ -106,15 +107,15 @@ class TeamController extends Controller
 
     public function destroy(Team $team)
     {
-        $team->players()->detach();
-        $team->delete();
+        $team->players()->detach();  // Detach all players from team
+        $team->delete();  // Delete the team
 
         return redirect()->route('teams.index')->with('success', 'Team deleted successfully!');
     }
 
     public function toggleActive(Team $team)
     {
-        $team->is_active = !$team->is_active;
+        $team->is_active = !$team->is_active;  // Toggle team's active status
         $team->save();
 
         return redirect()->route('admin.index')->with('success', 'Team status updated successfully.');

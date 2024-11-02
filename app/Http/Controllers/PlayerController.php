@@ -10,14 +10,14 @@ class PlayerController extends Controller
 {
     public function show($id)
     {
-        $player = Player::find($id);
+        $player = Player::find($id);  // Retrieve player by ID
 
         // Track the number of viewed players in the session
         $viewedPlayersCount = session('viewedPlayersCount', 0);
         $viewedPlayersCount++;
         session(['viewedPlayersCount' => $viewedPlayersCount]);
 
-        // Optionally, you can add a flash message to inform the user
+        // Show a flash message after viewing 3 players
         if ($viewedPlayersCount == 3) {
             session()->flash('success', 'Je hebt nu 3 spelers bekeken! Je kunt nu een team aanmaken.');
         }
@@ -27,8 +27,8 @@ class PlayerController extends Controller
 
     public function index(Request $request)
     {
-        $playerSearchTerm = $request->input('player_search', '');
-        $position = $request->input('position', '');
+        $playerSearchTerm = $request->input('player_search', '');  // Search term for player name
+        $position = $request->input('position', '');  // Filter by position
 
         $players = Player::when($playerSearchTerm, function ($query) use ($playerSearchTerm) {
             return $query->where('name', 'like', '%' . $playerSearchTerm . '%');
@@ -43,7 +43,7 @@ class PlayerController extends Controller
 
     public function create()
     {
-        if (Auth::user()->is_admin !== 1) {
+        if (Auth::user()->is_admin !== 1) {  // Only allow admin users to create a player
             return redirect()->route('players.index');
         }
         $players = Player::all();
@@ -52,7 +52,7 @@ class PlayerController extends Controller
 
     public function store(Request $request)
     {
-
+        // Validate player data
         $validated = $request->validate([
             'name' => 'required|max:255|unique:players',
             'club' => 'required',
@@ -61,6 +61,7 @@ class PlayerController extends Controller
             'eligibility' => 'required|numeric'
         ]);
 
+        // Create and save a new player
         $player = new Player();
         $player->name = $validated['name'];
         $player->club = $validated['club'];
@@ -80,15 +81,16 @@ class PlayerController extends Controller
 
     public function update(Request $request, Player $player)
     {
+        // Validate updated player data
         $validated = $request->validate([
             'name' => 'required|max:255|unique:players,name,' . $player->id,
             'club' => 'required',
             'value' => 'required|numeric|min:0',
             'position' => 'required',
             'eligibility' => 'required|numeric'
-
         ]);
 
+        // Update player with validated data
         $player->name = $validated['name'];
         $player->club = $validated['club'];
         $player->value = $validated['value'];
@@ -101,10 +103,8 @@ class PlayerController extends Controller
 
     public function destroy(Player $player)
     {
-        $player->delete();
+        $player->delete();  // Delete player
 
         return redirect()->route('players.index')->with('success', 'Player deleted successfully!');
     }
 }
-
-

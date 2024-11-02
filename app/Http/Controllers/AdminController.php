@@ -9,63 +9,42 @@ use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        if (Auth::check() && Auth::user()->is_admin == 1) {
-            $players = Player::all();
-            $teams = Team::all();
-            return view('admin.index', compact('players'), compact('teams'));
+        if (Auth::check() && Auth::user()->is_admin == 1) {  // Check if the user is authenticated and an admin
+            $players = Player::all();  // Get all players
+            $teams = Team::all();      // Get all teams
+            return view('admin.index', compact('players'), compact('teams'));  // Pass data to admin view
         } else {
-            return view('home');
+            return view('home');  // Redirect non-admin users to home
         }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         //

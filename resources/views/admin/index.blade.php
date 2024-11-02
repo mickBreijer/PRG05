@@ -8,13 +8,13 @@
         @foreach($teams as $team)
             <li>
                 <a href="{{ route('teams.show', $team->id) }}">
-                    {{ $team->name }} Het Team van: {{$team->user->name}}
+                    {{ $team->name }} Het Team van: {{$team->user->name}}  <!-- Link to the team's details -->
                 </a>
 
                 <form action="{{ route('teams.toggle', $team->id) }}" method="POST" style="display:inline;">
-                    @csrf
+                    @csrf  <!-- CSRF protection -->
                     <button type="submit" class="btn btn-warning">
-                        {{ $team->is_active ? 'Active' : 'Inactive' }}
+                        {{ $team->is_active ? 'Active' : 'Inactive' }}  <!-- Toggle button for team status -->
                     </button>
                 </form>
             </li>

@@ -9,6 +9,6 @@ class Player extends Model
 {
     public function teams(): BelongsToMany
     {
-        return $this->belongsToMany(Team::class);
+        return $this->belongsToMany(Team::class);  // Define many-to-many relationship with teams
     }
 }

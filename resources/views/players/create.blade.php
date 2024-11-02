@@ -1,13 +1,13 @@
 <x-layout><br>
-    <form action="{{ route('players.store') }}" method="POST">
+    <form action="{{ route('players.store') }}" method="POST">  <!-- Form to create a new player -->
         @csrf
         <div>
             <label for="name">Speler Naam</label>
-            <input type="text" id="name" name="name" required>
+            <input type="text" id="name" name="name" required>  <!-- Input for player name -->
         </div><br>
         <div>
             <label for="club">Club</label>
-            <select name="club" id="club" required>
+            <select name="club" id="club" required>  <!-- Dropdown for selecting club -->
                 <option value="">Kies een club</option>
                 <option value="Feyenoord">Feyenoord</option>
                 <option value="Almere City FC">Almere City FC</option>
@@ -31,11 +31,11 @@
         </div><br>
         <div>
             <label for="value">Speler Waarde</label>
-            <input type="number" id="value" name="value" min="0" required>
+            <input type="number" id="value" name="value" min="0" required>  <!-- Input for player value -->
         </div><br>
         <div>
             <label for="position">Positie</label>
-            <select name="position" id="position" required>
+            <select name="position" id="position" required>  <!-- Dropdown for selecting position -->
                 <option value="">Kies een positie</option>
                 <option value="Keeper">Keeper</option>
                 <option value="Verdediger">Verdediger</option>
@@ -43,6 +43,6 @@
                 <option value="Aanvaller">Aanvaller</option>
             </select>
         </div><br>
-        <button type="submit">Maak Speler</button>
+        <button type="submit">Maak Speler</button>  <!-- Submit button to create player -->
     </form>
 </x-layout>
