@@ -73,14 +73,18 @@ class TeamController extends Controller
 
     public function edit(Team $team)
     {
-        $allPlayers = Player::all();
-        $currentPlayerIds = $team->players->pluck('id')->toArray();
-        $availablePlayers = [];
+        if(Auth::id() === $team->user_id || Auth::user()->is_admin == 1) {
+            $allPlayers = Player::all();
+            $currentPlayerIds = $team->players->pluck('id')->toArray();
+            $availablePlayers = [];
 
-        foreach ($allPlayers as $player) {
-            if (!in_array($player->id, $currentPlayerIds)) {
-                $availablePlayers[$player->position][] = $player;
+            foreach ($allPlayers as $player) {
+                if (!in_array($player->id, $currentPlayerIds)) {
+                    $availablePlayers[$player->position][] = $player;
+                }
             }
+        } else {
+            return view('home');
         }
 
         return view('teams.edit', compact('team', 'availablePlayers'));
